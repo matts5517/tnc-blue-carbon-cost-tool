@@ -208,7 +208,7 @@ docker compose up
 
 This starts all services: `api`, `client`, `backoffice`, `database`, `minio`, and `nginx`.
 
-> **Note:** The Docker Compose setup builds production-like images. For active development, running services directly on the host (as described above) is recommended for faster iteration with hot reload.
+> **Note:** For active development, running services directly on the host (as described above) is recommended for faster iteration with hot reload.
 
 ---
 
