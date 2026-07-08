@@ -1,6 +1,9 @@
 import { ProjectType } from "@shared/contracts/projects.contract";
 import { PROJECT_SCORE } from "@shared/entities/project-score.enum";
-import { COST_TYPE_SELECTOR } from "@shared/entities/projects.entity";
+import {
+  COST_TYPE_SELECTOR,
+  PROJECT_PRICE_TYPE,
+} from "@shared/entities/projects.entity";
 import { createColumnHelper } from "@tanstack/react-table";
 import { z } from "zod";
 
@@ -26,6 +29,7 @@ const columnHelper = createColumnHelper<
     capexNPV?: number;
     opexNPV?: number;
     totalCostNPV?: number;
+    creditsIssued?: number;
   }
 >();
 
@@ -64,6 +68,42 @@ const createSegments = (
   ];
 };
 
+/**
+ * Calculate break-even cost per ton of CO2e based on selected price type
+ * OPEX_BREAKEVEN: opex / creditsIssued
+ * TOTAL_COST_BREAKEVEN: totalCost / creditsIssued
+ */
+const calculateBreakevenCostPerTon = (
+  rowData: Parameters<typeof columnHelper.accessor>[0],
+  filters: z.infer<typeof filtersSchema>,
+): number | null => {
+  const isNPV = filters.costRangeSelector === COST_TYPE_SELECTOR.NPV;
+  const costToUse = isNPV ? rowData.totalCostNPV : rowData.totalCost;
+  const opexToUse = isNPV ? rowData.opexNPV : rowData.opex;
+  const creditsIssued = rowData.creditsIssued;
+
+  console.log("Breakeven calculation:", {
+    projectName: rowData.projectName,
+    isNPV,
+    costToUse: typeof costToUse === "string" ? parseFloat(costToUse) : costToUse,
+    opexToUse: typeof opexToUse === "string" ? parseFloat(opexToUse) : opexToUse,
+    creditsIssued: typeof creditsIssued === "string" ? parseFloat(creditsIssued) : creditsIssued,
+    priceType: filters.priceType,
+  });
+
+  if (!creditsIssued || creditsIssued === 0) {
+    return null;
+  }
+
+  if (filters.priceType === PROJECT_PRICE_TYPE.OPEX_BREAKEVEN) {
+    return opexToUse && opexToUse > 0 ? opexToUse / creditsIssued : null;
+  } else if (filters.priceType === PROJECT_PRICE_TYPE.TOTAL_COST_BREAKEVEN) {
+    return costToUse && costToUse > 0 ? costToUse / creditsIssued : null;
+  }
+
+  return null;
+};
+
 export const columns = (filters: z.infer<typeof filtersSchema>) => [
   columnHelper.accessor("projectName", {
     enableSorting: true,
@@ -81,10 +121,11 @@ export const columns = (filters: z.infer<typeof filtersSchema>) => [
     },
   }),
   columnHelper.accessor(
-    getAccessor("costPerTCO2e", filters.costRangeSelector === "npv"),
+    (row) => calculateBreakevenCostPerTon(row, filters),
     {
+      id: "breakEvenCostPerTCO2e",
       enableSorting: true,
-      header: renderHeader("Cost $(USD)/tCO2e"),
+      header: renderHeader("Break-even cost $(USD)/tCO2e"),
       cell: (props) => {
         const value = props.getValue();
         if (value === null || value === undefined) {

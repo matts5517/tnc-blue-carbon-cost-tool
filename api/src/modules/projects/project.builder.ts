@@ -164,7 +164,7 @@ export class ProjectBuilder {
     computedProject.totalRevenueNPV = costOutputs.costPlans.totalRevenueNPV;
     computedProject.totalRevenue = costOutputs.costPlans.totalRevenue;
     computedProject.creditsIssued = costOutputs.costPlans.totalCreditsIssued;
-    if (computedProject.priceType === PROJECT_PRICE_TYPE.MARKET_PRICE) {
+    if (computedProject.priceType === PROJECT_PRICE_TYPE.OPEX_BREAKEVEN) {
       const { totalRevenue, totalRevenueNPV, opex, opexNPV } = computedProject;
       computedProject.leftoverAfterOpex = totalRevenue - opex;
       computedProject.leftoverAfterOpexNPV = totalRevenueNPV - opexNPV;

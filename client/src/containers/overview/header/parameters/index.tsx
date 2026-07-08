@@ -26,17 +26,17 @@ import {
 export const PROJECT_PARAMETERS: Parameter[] = [
   {
     key: FILTER_KEYS[2],
-    label: "Carbon price type",
-    className: "w-[195px]",
-    tooltipContent: FILTERS.CARBON_PRICING_TYPE,
+    label: "Break-even price type",
+    className: "w-[220px]",
+    tooltipContent: FILTERS.BREAKEVEN_PRICE_TYPE,
     options: [
       {
-        label: PROJECT_PRICE_TYPE.MARKET_PRICE,
-        value: PROJECT_PRICE_TYPE.MARKET_PRICE,
+        label: PROJECT_PRICE_TYPE.OPEX_BREAKEVEN,
+        value: PROJECT_PRICE_TYPE.OPEX_BREAKEVEN,
       },
       {
-        label: PROJECT_PRICE_TYPE.OPEN_BREAK_EVEN_PRICE,
-        value: PROJECT_PRICE_TYPE.OPEN_BREAK_EVEN_PRICE,
+        label: PROJECT_PRICE_TYPE.TOTAL_COST_BREAKEVEN,
+        value: PROJECT_PRICE_TYPE.TOTAL_COST_BREAKEVEN,
       },
     ],
   },

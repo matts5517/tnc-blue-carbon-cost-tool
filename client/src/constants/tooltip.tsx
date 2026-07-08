@@ -15,7 +15,7 @@ export const OVERVIEW = {
   COST: "Cost per tCO2e (incl. CAPEX and OPEX)",
 
   ABATEMENT_POTENTIAL:
-    "Estimation of the total amount of CO2e abatement that is expected during the life of the project. Used to determine whether the scale justifies the development costs",
+    "Estimation of the total amount of CO2e credit potential that is expected during the life of the project. Used to determine whether the scale justifies the development costs",
   TOTAL_COST: "Total cost (incl. CAPEX and OPEX)",
 };
 
@@ -39,7 +39,7 @@ export const SCORECARD_PRIORITIZATION = {
   BIODIVERSITY_BENEFIT:
     "Estimation of a project's impact on biodiversity, to inform likelihood of achieving higher credit price.",
   ABATEMENT_POTENTIAL:
-    "Estimation of the total amount of CO2e abatement that is expected during the life of the project. Used to determine whether the scale justifies the development costs",
+    "Estimation of the total amount of CO2e credit potential that is expected during the life of the project. Used to determine whether the scale justifies the development costs",
 };
 
 export const KEY_COSTS = {
@@ -134,10 +134,7 @@ export const FILTERS = {
           capture and storage. While often more resource-intensive, restoration
           projects are highly visible and impactful. Restoration is implemented
           through one of three approaches: planting, hydrology, or a hybrid of
-          the two. restore their functionality and enhance carbon capture and
-          storage. While often more resource-intensive, restoration projects are
-          highly visible and impactful. Restoration is implemented through one
-          of three approaches: planting, hydrology, or a hybrid of the two.
+          the two.
         </li>
       </List>
     </>
@@ -175,32 +172,32 @@ export const FILTERS = {
       </p>
     </>
   ),
-  CARBON_PRICING_TYPE: (
+  BREAKEVEN_PRICE_TYPE: (
     <>
       <p>
-        The Carbon Price Type defines the pricing approach used to calculate the
-        sale of carbon credits, which impacts project costs, including
-        contributions to the &apos;landowner/community benefit share.&apos;
-        There are two pricing archetypes available:
+        The Break-even Price Type determines which costs are used to calculate
+        the minimum carbon credit price required to achieve financial break-even
+        for a project:
       </p>
       <List>
         <li>
-          <strong>Market Price:</strong> A standard price of $30 per ton of
-          CO₂e, reflecting the market averages in 2025 and the added value of
-          blue carbon co-benefits such as climate resilience and biodiversity.
-          This price is consistent across all projects.
+          <strong>Opex Breakeven:</strong> The minimum price per ton of CO₂e
+          needed to cover only the operational expenditure (OPEX) of the
+          project. This represents the ongoing annual costs of maintaining and
+          monitoring the project after initial implementation.
         </li>
         <li>
-          <strong>OPEX Breakeven Price:</strong> A project-specific price
-          modeled to cover the operational expenditure (OPEX) of an individual
-          project. This price varies depending on the unique costs associated
-          with each project.
+          <strong>Total Cost Breakeven:</strong> The minimum price per ton of
+          CO₂e needed to cover all project costs, including both capital
+          expenditure (CAPEX) and operational expenditure (OPEX). This
+          represents the complete financial investment required to establish and
+          operate the project.
         </li>
       </List>
       <p>
-        These two options allow for flexible cost assessments based on a
-        standard market value or project-specific operational needs, and can
-        inform carbon credit sale negotiations.
+        These options allow for evaluating different financial scenarios based
+        on project cost structures and can inform carbon credit price
+        negotiations.
       </p>
     </>
   ),
@@ -246,7 +243,7 @@ export const PROJECT_DETAILS = {
   NET_REVENUE_AFTER_OPEX_TOTAL_COST:
     "Net revenue is equal to income from carbon credit sales minus OPEX.",
   CREDIT_POTENTIAL:
-    "The estimated abatement potential (tCO2e) over 20 years of the project.",
+    "The estimated credit potential (tCO2e) over 20 years of the project.",
   OVERALL_SCORE:
     "The non-economic scores, in addition to the economic feasibility and credit potential, are weighted to an overall score per project.",
   SCORE_CARD_RATINGS: (

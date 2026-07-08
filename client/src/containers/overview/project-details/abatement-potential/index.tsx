@@ -18,11 +18,11 @@ const AbatementPotential: FC<AbatementPotentialProps> = ({ value }) => {
           <Label
             className="text-md font-medium"
             tooltip={{
-              title: "Abatement Potential",
+              title: "Credit potential",
               content: PROJECT_DETAILS.CREDIT_POTENTIAL,
             }}
           >
-            <h3 className="text-base font-semibold">Abatement Potential</h3>
+            <h3 className="text-base font-semibold">Credit potential</h3>
           </Label>
         </div>
         <span className="space-x-1 text-xl font-normal">

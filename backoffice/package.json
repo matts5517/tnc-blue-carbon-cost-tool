@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
+  "exports": {
+    "./components/*": "./components/*",
+    "./resources/*": "./resources/*",
+    "./datasource.js": "./datasource.ts"
+  },
   "scripts": {
     "start:prod": "tsx index.ts",
     "start:dev": "nodemon --exec tsx index.ts"

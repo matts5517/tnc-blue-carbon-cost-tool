@@ -184,7 +184,6 @@ export class ProjectsService extends AppBaseService<
     fetchSpecification: ProjectFetchSpecification,
   ): Promise<ProjectsFiltersBoundsDto> {
     const qb = this.dataSource.createQueryBuilder();
-    this.setFilters(qb, fetchSpecification.filter);
     this.applySearchFiltersToQueryBuilder(qb, fetchSpecification);
 
     qb.select('MAX(abatement_potential)', 'maxAbatementPotential').addSelect(
@@ -223,7 +222,7 @@ export class ProjectsService extends AppBaseService<
     );
     await Promise.all(
       fromExcel
-        .filter((r) => r.price_type === PROJECT_PRICE_TYPE.MARKET_PRICE)
+        .filter((r) => r.price_type === PROJECT_PRICE_TYPE.OPEX_BREAKEVEN)
         .map(async (projectFromExcel) => {
           const projectDto = ProjectBuilder.excelInputToDto(projectFromExcel);
           await this.createProject(projectDto);
@@ -242,23 +241,23 @@ export class ProjectsService extends AppBaseService<
     const { costOutput, breakEvenCostOutput } = costs;
     if (breakEvenCostOutput) {
       const { breakEvenCost, breakEvenCarbonPrice } = breakEvenCostOutput;
-      const openBreakEvenPriceCreateDto = structuredClone(createProjectDto);
-      openBreakEvenPriceCreateDto.priceType =
-        PROJECT_PRICE_TYPE.OPEN_BREAK_EVEN_PRICE;
-      openBreakEvenPriceCreateDto.initialCarbonPriceAssumption =
+      const totalCostBreakEvenCreateDto = structuredClone(createProjectDto);
+      totalCostBreakEvenCreateDto.priceType =
+        PROJECT_PRICE_TYPE.TOTAL_COST_BREAKEVEN;
+      totalCostBreakEvenCreateDto.initialCarbonPriceAssumption =
         breakEvenCarbonPrice;
       const project = new ProjectBuilder(
-        openBreakEvenPriceCreateDto,
+        totalCostBreakEvenCreateDto,
         scoreCardRating,
         breakEvenCost,
-        openBreakEvenPriceCreateDto.projectSizeHa,
+        totalCostBreakEvenCreateDto.projectSizeHa,
       );
-      // Save the breakeven price project if found
+      // Save the total cost breakeven price project if found
       await this.projectRepository.save(project.build());
     }
 
-    // Save the market price project
-    createProjectDto.priceType = PROJECT_PRICE_TYPE.MARKET_PRICE;
+    // Save the opex breakeven price project
+    createProjectDto.priceType = PROJECT_PRICE_TYPE.OPEX_BREAKEVEN;
     const project = new ProjectBuilder(
       createProjectDto,
       scoreCardRating,
@@ -285,7 +284,7 @@ export class ProjectsService extends AppBaseService<
     const { costOutput, breakEvenCostOutput } = costs;
 
     const costsToUse =
-      projectToUpdate.priceType === PROJECT_PRICE_TYPE.MARKET_PRICE
+      projectToUpdate.priceType === PROJECT_PRICE_TYPE.OPEX_BREAKEVEN
         ? costOutput
         : breakEvenCostOutput.breakEvenCost;
 

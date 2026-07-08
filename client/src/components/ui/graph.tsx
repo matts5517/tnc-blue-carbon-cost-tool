@@ -219,7 +219,7 @@ function calculateSplitModeHeights(total: number, leftover: number) {
 
   // Set minimum heights to ensure visibility of small segments
   const leftoverMinHeight =
-    fixedHeights && leftoverPercentage < minPercentageThreshold
+    fixedHeights && leftoverPercentage < minPercentageThreshold && leftover !== 0
       ? minHeightPercentage
       : undefined;
   const totalRevenueMinHeight =

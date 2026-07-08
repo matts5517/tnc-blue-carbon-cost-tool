@@ -13,6 +13,7 @@ const OMITTED_FIELDS = [
   "costRange",
   "abatementPotentialRange",
   "costRangeSelector",
+  "priceType",
 ];
 
 export const filtersToQueryParams = (

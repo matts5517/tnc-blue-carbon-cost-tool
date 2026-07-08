@@ -2,7 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "module": "esnext",
-    "moduleResolution": "nodenext",
+    "moduleResolution": "bundler",
     "target": "esnext",
     "outDir": "./dist",
     "esModuleInterop": true,
@@ -12,7 +12,14 @@
     "skipLibCheck": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "baseUrl": ".",
+    "paths": {
+      "@api/*": ["../api/dist/api/src/*"],
+      "@shared/*": ["../shared/*"],
+      "@client/*": ["../client/*"],
+      "@data/*": ["../data/*"]
+    }
   },
-  "include": ["./**/*.ts", "./**/*.tsx", "../shared/**/*.ts", "../api/**/*.ts"],
+  "include": ["./**/*.ts", "./**/*.tsx", "../shared/**/*.ts"],
   "exclude": ["node_modules"]
 }

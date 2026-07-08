@@ -96,6 +96,7 @@ export class CostCalculator {
     const totalCreditsIssued = sum(Object.values(creditsIssuedPlan));
     const costPerTCO2e =
       totalCreditsIssued != 0 ? totalNPV / totalCreditsIssued : 0;
+      console.log('Total Capex:', costPerTCO2e, totalNPV, totalCreditsIssued);
     const costPerHa = this.calculateCostPerHa(totalNPV);
     const npvCoveringCosts =
       this.projectInput.carbonRevenuesToCover === CARBON_REVENUES_TO_COVER.OPEX

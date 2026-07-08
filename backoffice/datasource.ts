@@ -83,6 +83,7 @@ export const ADMINJS_ENTITIES = [
 export const dataSource: DataSource = new DataSource({
   type: 'postgres',
   host: process.env.DB_HOST || 'localhost',
+  port: Number(process.env.DB_PORT) || 5433,
   username: process.env.DB_USERNAME || 'blue-carbon-cost',
   password: process.env.DB_PASSWORD || 'blue-carbon-cost',
   database: process.env.DB_NAME || 'blc-dev',
