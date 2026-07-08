@@ -20,8 +20,8 @@ export enum PROJECT_SIZE_FILTER {
 }
 
 export enum PROJECT_PRICE_TYPE {
-  OPEN_BREAK_EVEN_PRICE = "Opex breakeven",
-  MARKET_PRICE = "Market price",
+  OPEX_BREAKEVEN = "Opex breakeven",
+  TOTAL_COST_BREAKEVEN = "Total cost breakeven",
 }
 
 export enum COST_TYPE_SELECTOR {

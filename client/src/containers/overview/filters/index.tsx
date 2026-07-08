@@ -188,7 +188,7 @@ export default function ProjectsFilters() {
   };
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && bounds?.cost && bounds?.abatementPotential) {
       setCostValuesState([bounds.cost.min, bounds.cost.max]);
       setAbatementValueState([
         bounds.abatementPotential.min,

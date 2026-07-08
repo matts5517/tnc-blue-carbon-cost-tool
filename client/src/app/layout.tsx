@@ -65,9 +65,9 @@ export default async function RootLayout({
             </SidebarProvider>
             <Toaster />
             <PrivacyBanner />
+            <GoogleAnalytics />
           </body>
         </NuqsAdapter>
-        <GoogleAnalytics />
       </html>
     </LayoutProviders>
   );

@@ -41,7 +41,7 @@ describe('Entity Preprocessor', () => {
             country_code: 'CHN',
             ecosystem: ECOSYSTEM.SALT_MARSH,
             activity: ACTIVITY.CONSERVATION,
-            price_type: PROJECT_PRICE_TYPE.MARKET_PRICE,
+            price_type: PROJECT_PRICE_TYPE.OPEX_BREAKEVEN,
             project_size_ha: 8000,
             project_size_filter: 'Large',
             project_abatement_potential: 1044882,

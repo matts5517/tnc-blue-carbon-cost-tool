@@ -31,12 +31,12 @@ export const PROJECT_PARAMETERS: Parameter[] = [
     tooltipContent: FILTERS.CARBON_PRICING_TYPE,
     options: [
       {
-        label: PROJECT_PRICE_TYPE.MARKET_PRICE,
-        value: PROJECT_PRICE_TYPE.MARKET_PRICE,
+        label: PROJECT_PRICE_TYPE.OPEX_BREAKEVEN,
+        value: PROJECT_PRICE_TYPE.OPEX_BREAKEVEN,
       },
       {
-        label: PROJECT_PRICE_TYPE.OPEN_BREAK_EVEN_PRICE,
-        value: PROJECT_PRICE_TYPE.OPEN_BREAK_EVEN_PRICE,
+        label: PROJECT_PRICE_TYPE.TOTAL_COST_BREAKEVEN,
+        value: PROJECT_PRICE_TYPE.TOTAL_COST_BREAKEVEN,
       },
     ],
   },

@@ -223,7 +223,7 @@ export class ProjectsService extends AppBaseService<
     );
     await Promise.all(
       fromExcel
-        .filter((r) => r.price_type === PROJECT_PRICE_TYPE.MARKET_PRICE)
+        .filter((r) => r.price_type === PROJECT_PRICE_TYPE.OPEX_BREAKEVEN)
         .map(async (projectFromExcel) => {
           const projectDto = ProjectBuilder.excelInputToDto(projectFromExcel);
           await this.createProject(projectDto);
@@ -244,7 +244,7 @@ export class ProjectsService extends AppBaseService<
       const { breakEvenCost, breakEvenCarbonPrice } = breakEvenCostOutput;
       const openBreakEvenPriceCreateDto = structuredClone(createProjectDto);
       openBreakEvenPriceCreateDto.priceType =
-        PROJECT_PRICE_TYPE.OPEN_BREAK_EVEN_PRICE;
+        PROJECT_PRICE_TYPE.OPEX_BREAKEVEN;
       openBreakEvenPriceCreateDto.initialCarbonPriceAssumption =
         breakEvenCarbonPrice;
       const project = new ProjectBuilder(
@@ -258,7 +258,7 @@ export class ProjectsService extends AppBaseService<
     }
 
     // Save the market price project
-    createProjectDto.priceType = PROJECT_PRICE_TYPE.MARKET_PRICE;
+    createProjectDto.priceType = PROJECT_PRICE_TYPE.OPEX_BREAKEVEN;
     const project = new ProjectBuilder(
       createProjectDto,
       scoreCardRating,
@@ -285,7 +285,7 @@ export class ProjectsService extends AppBaseService<
     const { costOutput, breakEvenCostOutput } = costs;
 
     const costsToUse =
-      projectToUpdate.priceType === PROJECT_PRICE_TYPE.MARKET_PRICE
+      projectToUpdate.priceType === PROJECT_PRICE_TYPE.OPEX_BREAKEVEN
         ? costOutput
         : breakEvenCostOutput.breakEvenCost;
 

@@ -237,11 +237,11 @@ describe.skip('Project Map', () => {
 
     await Promise.all([
       testManager.mocks().createProject({
-        priceType: PROJECT_PRICE_TYPE.MARKET_PRICE,
+        priceType: PROJECT_PRICE_TYPE.OPEX_BREAKEVEN,
         countryCode: countries[0].code,
       }),
       testManager.mocks().createProject({
-        priceType: PROJECT_PRICE_TYPE.OPEN_BREAK_EVEN_PRICE,
+        priceType: PROJECT_PRICE_TYPE.TOTAL_COST_BREAKEVEN,
         countryCode: countries[1].code,
       }),
     ]);
@@ -250,7 +250,7 @@ describe.skip('Project Map', () => {
       .request()
       .get(projectsContract.getProjectsMap.path)
       .query({
-        filter: { priceType: [PROJECT_PRICE_TYPE.OPEN_BREAK_EVEN_PRICE] },
+        filter: { priceType: [PROJECT_PRICE_TYPE.TOTAL_COST_BREAKEVEN] },
       });
 
     expect(response.status).toBe(HttpStatus.OK);
@@ -269,12 +269,12 @@ describe.skip('Project Map', () => {
     await Promise.all([
       testManager.mocks().createProject({
         projectSizeFilter: PROJECT_SIZE_FILTER.MEDIUM,
-        priceType: PROJECT_PRICE_TYPE.MARKET_PRICE,
+        priceType: PROJECT_PRICE_TYPE.OPEX_BREAKEVEN,
         countryCode: countries[0].code,
       }),
       testManager.mocks().createProject({
         projectSizeFilter: PROJECT_SIZE_FILTER.SMALL,
-        priceType: PROJECT_PRICE_TYPE.OPEN_BREAK_EVEN_PRICE,
+        priceType: PROJECT_PRICE_TYPE.TOTAL_COST_BREAKEVEN,
         countryCode: countries[1].code,
       }),
     ]);
@@ -305,13 +305,13 @@ describe.skip('Project Map', () => {
       testManager.mocks().createProject({
         projectName: 'MyProjectName',
         projectSizeFilter: PROJECT_SIZE_FILTER.MEDIUM,
-        priceType: PROJECT_PRICE_TYPE.MARKET_PRICE,
+        priceType: PROJECT_PRICE_TYPE.OPEX_BREAKEVEN,
         countryCode: countries[0].code,
       }),
       testManager.mocks().createProject({
         projectName: 'ShouldNotBeReturned',
         projectSizeFilter: PROJECT_SIZE_FILTER.MEDIUM,
-        priceType: PROJECT_PRICE_TYPE.MARKET_PRICE,
+        priceType: PROJECT_PRICE_TYPE.OPEX_BREAKEVEN,
         countryCode: countries[0].code,
       }),
     ]);

@@ -41,7 +41,7 @@ export class ApiConfigService {
       password: this.configService.getOrThrow('DB_PASSWORD'),
       database: this.configService.getOrThrow('DB_NAME'),
       entities: COMMON_DATABASE_ENTITIES,
-      synchronize: true,
+      synchronize: false,
       ssl: this.isProduction()
         ? { require: true, rejectUnauthorized: false }
         : false,

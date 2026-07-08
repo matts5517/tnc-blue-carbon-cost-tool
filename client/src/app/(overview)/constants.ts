@@ -46,7 +46,7 @@ export const filtersSchema = z.object({
 export const INITIAL_FILTERS_STATE: z.infer<typeof filtersSchema> = {
   keyword: "",
   projectSizeFilter: [],
-  priceType: PROJECT_PRICE_TYPE.MARKET_PRICE,
+  priceType: PROJECT_PRICE_TYPE.OPEX_BREAKEVEN,
   costRangeSelector: COST_TYPE_SELECTOR.NPV,
   countryCode: "",
   ecosystem: [],
