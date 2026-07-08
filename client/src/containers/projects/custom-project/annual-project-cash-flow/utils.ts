@@ -18,7 +18,9 @@ type ChartDataKeys =
   | "opexTotalCostPlan"
   | "capexTotalCostPlan"
   | "annualNetCashFlow"
-  | "cumulativeNetIncomePlan";
+  | "cumulativeNetIncomePlan"
+  | "creditsIssuedPlan"
+  | "cumulativeCreditsPlan";
 
 type ChartData = Record<ChartDataKeys, CostPlanMap>;
 type YearlyBreakdownData = {
@@ -27,6 +29,8 @@ type YearlyBreakdownData = {
   capexTotalCostPlan: number;
   annualNetCashFlow: number;
   cumulativeNetIncomePlan: number;
+  creditsIssuedPlan: number;
+  cumulativeCreditsPlan: number;
   year: number;
 };
 type YearlyBreakdownChartData = YearlyBreakdownData[];
@@ -43,6 +47,8 @@ function parseYearlyBreakdownForChart(
     capexTotalCostPlan: {},
     annualNetCashFlow: {},
     cumulativeNetIncomePlan: {},
+    creditsIssuedPlan: {},
+    cumulativeCreditsPlan: {},
   };
 
   // Populate chart data based on yearly breakdown
@@ -52,17 +58,23 @@ function parseYearlyBreakdownForChart(
     }
   });
 
-  // Transform data for each year
-  return years.map((year) => ({
-    year,
-    ...Object.keys(chartData).reduce(
-      (acc, key) => ({
-        ...acc,
-        [key]: chartData[key as ChartDataKeys][year],
-      }),
-      {} as Record<ChartDataKeys, number>,
-    ),
-  }));
+  // Transform data for each year and calculate cumulative credits
+  let cumulativeCredits = 0;
+  return years.map((year) => {
+    const yearData = {
+      year,
+      ...Object.keys(chartData).reduce(
+        (acc, key) => ({
+          ...acc,
+          [key]: chartData[key as ChartDataKeys][year],
+        }),
+        {} as Record<ChartDataKeys, number>,
+      ),
+    };
+    cumulativeCredits += yearData.creditsIssuedPlan || 0;
+    yearData.cumulativeCreditsPlan = cumulativeCredits;
+    return yearData;
+  });
 }
 type CostNameConfig = {
   order: number;
@@ -146,28 +158,32 @@ const cashflowConfig: Record<YearlyBreakdownCostName, CostNameConfig> = {
     order: 19,
     label: "Est. credits issued",
   },
-  estimatedRevenuePlan: {
+  cumulativeCreditsPlan: {
     order: 20,
+    label: "Credit generation",
+  },
+  estimatedRevenuePlan: {
+    order: 21,
     label: "Est. revenue",
   },
   financingCost: {
-    order: 21,
+    order: 22,
     label: "Financing cost",
   },
   cumulativeNetIncomePlan: {
-    order: 22,
+    order: 23,
     label: "Revenue OpEx",
   },
   cumulativeNetIncomeCapexOpex: {
-    order: 23,
+    order: 24,
     label: "Revenue CapEx + OpEx",
   },
   annualNetIncome: {
-    order: 24,
+    order: 25,
     label: "Revenue Opex",
   },
   annualNetCashFlow: {
-    order: 25,
+    order: 26,
     label: "Annual net cash flow",
   },
 };
