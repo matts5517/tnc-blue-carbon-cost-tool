@@ -72,22 +72,25 @@ const LeftOverGraph: FC<LeftOverGraphProps> = ({
  * 2. Split mode (when leftover is provided): Shows total on left and segments with leftover on right
  */
 const Graph: FC<GraphProps> = ({ total, leftover, segments }) => {
-  if (typeof leftover === "number") {
+  // When leftover is exactly 0, treat it as undefined (no split mode) for cleaner visualization
+  const effectiveLeftover = leftover === 0 ? undefined : leftover;
+
+  if (typeof effectiveLeftover === "number") {
     // Calculate heights for split mode visualization
     const {
       totalRevenueHeight,
       leftoverHeight,
       leftoverMinHeight,
       totalRevenueMinHeight,
-    } = calculateSplitModeHeights(total, leftover);
+    } = calculateSplitModeHeights(total, effectiveLeftover);
 
     return (
       <div className="relative h-40 w-full max-w-[280px] overflow-hidden rounded-md">
         <div className="absolute bottom-0 top-0 flex h-full w-full flex-row gap-1 rounded-md">
           <div className="flex h-full w-full min-w-0 flex-col gap-1">
-            {leftover < 0 && (
+            {effectiveLeftover < 0 && (
               <LeftOverGraph
-                leftover={leftover}
+                leftover={effectiveLeftover}
                 leftoverHeight={leftoverHeight}
                 minHeight={leftoverMinHeight}
               />
@@ -116,9 +119,9 @@ const Graph: FC<GraphProps> = ({ total, leftover, segments }) => {
             </div>
           </div>
           <div className="flex h-full w-full flex-col gap-1 rounded-md">
-            {leftover > 0 && (
+            {effectiveLeftover > 0 && (
               <LeftOverGraph
-                leftover={leftover}
+                leftover={effectiveLeftover}
                 leftoverHeight={leftoverHeight}
                 minHeight={leftoverMinHeight}
               />
