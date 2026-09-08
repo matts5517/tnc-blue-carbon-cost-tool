@@ -242,6 +242,8 @@ export const PROJECT_DETAILS = {
     "The total cost associated with a hypothetical blue carbon project, including both capital expenditures (CAPEX) and operating expenditures (OPEX) but excluding financing costs.",
   NET_REVENUE_AFTER_OPEX_TOTAL_COST:
     "Net revenue is equal to income from carbon credit sales minus OPEX.",
+  BREAK_EVEN_COST:
+    "The offset price is the cost per ton of CO2 equivalent ($/tCO2e) required to break even on the project. This represents the minimum carbon credit price needed to cover project costs. If a user wants to achieve profit or revenue from the project, they will need to charge a carbon credit price higher than the break-even price.",
   CREDIT_POTENTIAL:
     "The estimated credit potential (tCO2e) over 20 years of the project.",
   OVERALL_SCORE:

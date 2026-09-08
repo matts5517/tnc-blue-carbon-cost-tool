@@ -20,7 +20,14 @@ services:
     container_name: blue-carbon-cost-admin
     environment:
       DB_HOST: database
+      DB_PORT: 5432
+      DB_NAME: blc
+      DB_USERNAME: blue-carbon-cost
+      DB_PASSWORD: blue-carbon-cost
+      API_URL: http://host.docker.internal:4000
       NODE_ENV: development
+      BACKOFFICE_SESSION_COOKIE_NAME: backoffice
+      BACKOFFICE_SESSION_COOKIE_SECRET: backoffice_session_secret
     build:
       context: .
       dockerfile: backoffice/Dockerfile

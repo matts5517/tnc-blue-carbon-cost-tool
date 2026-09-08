@@ -230,7 +230,7 @@ export class SequestrationRateCalculatorAbatementPotential {
       const year = Number(yearStr);
       let value: number = 0;
       if (year <= this.projectLength) {
-        if (emissionFactorSoc && emissionFactorAgb) {
+        if (emissionFactorSoc != null && emissionFactorAgb != null) {
           value =
             emissionFactorAgb * annualAvoidedLoss[year] +
             cumulativeLossRateIncorporatingSOC[year] * emissionFactorSoc +

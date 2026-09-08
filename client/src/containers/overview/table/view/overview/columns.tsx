@@ -80,25 +80,28 @@ const calculateBreakevenCostPerTon = (
   const isNPV = filters.costRangeSelector === COST_TYPE_SELECTOR.NPV;
   const costToUse = isNPV ? rowData.totalCostNPV : rowData.totalCost;
   const opexToUse = isNPV ? rowData.opexNPV : rowData.opex;
-  const creditsIssued = rowData.creditsIssued;
+  const creditsIssuedNum = typeof rowData.creditsIssued === "string" 
+    ? parseFloat(rowData.creditsIssued) 
+    : rowData.creditsIssued;
 
   console.log("Breakeven calculation:", {
     projectName: rowData.projectName,
     isNPV,
     costToUse: typeof costToUse === "string" ? parseFloat(costToUse) : costToUse,
     opexToUse: typeof opexToUse === "string" ? parseFloat(opexToUse) : opexToUse,
-    creditsIssued: typeof creditsIssued === "string" ? parseFloat(creditsIssued) : creditsIssued,
+    creditsIssued: creditsIssuedNum,
     priceType: filters.priceType,
   });
 
-  if (!creditsIssued || creditsIssued === 0) {
+  // Return null if credits issued is zero or not a valid number
+  if (!creditsIssuedNum || creditsIssuedNum <= 0) {
     return null;
   }
 
   if (filters.priceType === PROJECT_PRICE_TYPE.OPEX_BREAKEVEN) {
-    return opexToUse && opexToUse > 0 ? opexToUse / creditsIssued : null;
+    return opexToUse && opexToUse > 0 ? opexToUse / creditsIssuedNum : null;
   } else if (filters.priceType === PROJECT_PRICE_TYPE.TOTAL_COST_BREAKEVEN) {
-    return costToUse && costToUse > 0 ? costToUse / creditsIssued : null;
+    return costToUse && costToUse > 0 ? costToUse / creditsIssuedNum : null;
   }
 
   return null;
